@@ -68,12 +68,37 @@ int dijkstra(const vector<vector<int> >& g, int s, int v) { // Мацулевич Валерий
 
 int reading(int numb) { //функция чтения файла и записи в массив
 	std:: fstream file;
-	int size;
+	int size = -1;
 	string way = to_string(numb) + ".txt";
 	
 	file.open(way, ios::in); //открыть на чтение файл заданного номера с данными
 
-	file.getline(size); //считать размер
+	char line[100];
+	int k;
+	int i, ctr = 0;
+	double** narray;
+	while (file.getline(line, 100)) {
+		ctr += 1;
+		if (size == -1) {
+			size == (int)(line);
+			narray = new double* [size];
+			for (i; i < size; i++) {
+				narray[i] = new double[4];
+			}
+			i = 0;
+		}
+		while ((line[i] != ',') || (line[i] != '\n')) {
+			if (line[i] == ',') {
+				k += 1;
+			}
+//			narray[ctr * 4 + k] = (double)(line[k])
+			// сохранить слово в массив
+
+			// преобразовать под дейкстру
+			
+		}
+	}
+}
 
 
 
