@@ -1,12 +1,15 @@
 #pragma once
 
 #include <iostream>
+#include <vector>
+#include <queue>
+#include <utility>
+
 
 using namespace std; // мб уйти с него?
 
 class task { //объ€вление класса задач
 };
 
-int parametric(); // получение количества команд в обработке
-
 int reading(int numb); // чтение файла с командами. заполнить скобки!!!
+int dijkstra(const vector<vector<int> >& g, int s, int v)
