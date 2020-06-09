@@ -9,17 +9,20 @@
 #include <vector>
 #include <queue>
 #include <utility>
+#include <Windows.h>
+#include "C:\\Users\\User\\Downloads\\Contr_1.hpp" // путь
+#include "C:\\Users\\User\\Downloads\\Matrix.h" // путь
 
 using namespace std; // мб поменять
 
 
-const int INF = 10e6; // Максимальный вес ребра в графе
+long int INF = 10e6; // Максимальный вес ребра в графе
 
 // ВАЖНО: Дейкстра написан на списках смежности
 // s --- вершина, откуда идем
 // v --- вершина, длину кратчайшего пути до которой ищем
 
-int dijkstra(const vector<vector<int> >& g, int s, int v) { // Мацулевич Валерий
+void dijkstra(const vector<vector<int> >& g, int s, int v) { // Мацулевич Валерий
 	// Вектор кратчайших расстояний от s до всех остальных вершин в графе
 	vector<int> d(g.size(), INF);
 
@@ -60,20 +63,79 @@ int dijkstra(const vector<vector<int> >& g, int s, int v) { // Мацулевич Валерий
 	}
 
 	// Если вершина лежит в другой компоненте связности вернем отрицательное расстояние
-	if (d[v] == INF) return -1;
+	if (d[v] == INF) {
+		std::cout << "-1" << endl;
+	}
+	else {
+		std::cout << d[v] << endl;
+	}
 
 	// Иначе вернем расстояние до нее
-	return d[v];
 }
 
-int reading(int numb) { //функция чтения файла и записи в массив
-	std:: fstream file;
-	int size = -1;
-	string way = to_string(numb) + ".txt";
+int readDi(string way) {
+	std::fstream file;
+
+	file.open(way, ios::in); //открыть на чтение файл заданного номера с данными
+
+
+
+	int time; // счетчик времени
+	int t = clock();
+	
+	//чтение файла
+	//сохранение по блокам
+	// dijkstra
+	// обнули блок (память)
+
+	time = clock() - t;
+	file.close(); // закрыть файл после прочтения
+	return time;
+}
+
+int readODU(string way) {
+	std::fstream file;
 	
 	file.open(way, ios::in); //открыть на чтение файл заданного номера с данными
 
-	char line[100];
+	int time; // счетчик времени
+	int t = clock();
+
+	//чтение файла
+	//сохранение построчно
+	// ОДУ
+	// обнули строку
+	
+	time = clock() - t;
+	file.close(); // закрыть файл после прочтения
+	return time;
+}
+
+int reading(int numb) { //функция чтения файла и записи в массив
+
+	int choice;
+	std::cout << "Чтобы перейти к решению ОДУ, введите 1. \nЧтобы перейти к алгоритму Дейкстры, введите 2. \n" << endl;
+	std::cin >> choice;
+	while ((choice != 1) && (choice != 2)) {
+		std::cout << "Некорректный выбор задачи, попробуйте еще раз\n";
+		cin >> choice;
+	}
+
+	string way = to_string(numb) + ".txt";
+
+	int t;
+
+	if (choice == 1) {
+		t = readODU(way);
+	}
+	else {
+		t = readDi(way);
+	}
+
+	int size = -1;
+	
+
+	/*	 char line[100];
 	int k;
 	int i, ctr = 0;
 	double** narray;
@@ -97,23 +159,6 @@ int reading(int numb) { //функция чтения файла и записи в массив
 			// преобразовать под дейкстру
 			
 		}
-	}
-}
-
-
-
-	//выделение памяти
-
-	int time; // счетчик времени
-	clock_t t;
-	t = clock();
-
-	// выбор алгоритма задачи
-
-	time = clock() - t;
-	file.close(); // закрыть файл после прочтения
-	return time;
-
-	file.close(); // закрыть файл после прочтения
-	return time;
+	} */
+	return t;
 }

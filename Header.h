@@ -12,4 +12,6 @@ class task { //объ€вление класса задач
 };
 
 int reading(int numb); // чтение файла с командами. заполнить скобки!!!
-int dijkstra(const vector<vector<int> >& g, int s, int v)
+void dijkstra(const vector<vector<int> >& g, int s, int v);
+int readDi(string way);
+int readODU(string way);
