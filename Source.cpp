@@ -10,13 +10,14 @@
 #include <stdlib.h>
 #include <fstream>
 #include <thread> // осторожно с версиями!!!
+#include "C:\\Users\\User\\Downloads\\Contr.hpp" // путь
 
 using namespace std;
 
 int main() {
 	setlocale(LC_ALL, "rus"); // корректное отображение кириллицы
 	std::fstream resf; // файл для записи результатов
-	resf.open("C:\\Users\\User\\Downloads\\results.txt"); //поменять путь!!!
+	resf.open("results.txt", ios::out); //поменять путь!!!
 
 	cout << "Введите количество планируемых запусков:\n";
 	int n;
@@ -56,7 +57,6 @@ int main() {
 		resf << cores << endl;
 		resf << gf << endl;
 		resf << time << '\n' << endl;
-		// очистка памяти, задействованной под уравнения
 	}
 	resf.close(); // закрыть файл после записи
 	return 0;
