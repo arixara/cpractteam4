@@ -238,17 +238,16 @@ int readODU(string way) {
 }
 
 int reading(int numb) { //функция чтения файла и записи в массив
-
 	int choice;
-	std::cout << "Чтобы перейти к решению ОДУ, введите 1. \nЧтобы перейти к алгоритму Дейкстры, введите 2. \n" << endl;
-	std::cin >> choice;
-	while ((choice != 1) && (choice != 2)) {
-		std::cout << "Некорректный выбор задачи, попробуйте еще раз\n";
-		cin >> choice;
-	}
+		std::cout << "Чтобы перейти к решению ОДУ, введите 1. \nЧтобы перейти к алгоритму Дейкстры, введите 2. \n" << endl;
+		std::cin >> choice;
+		while ((choice != 1) && (choice != 2)) {
+			std::cout << "Некорректный выбор задачи, попробуйте еще раз\n";
+			cin >> choice;
+		}
 
 	string way = to_string(numb) + ".txt";
-
+	
 	int t;
 
 	if (choice == 1) {
