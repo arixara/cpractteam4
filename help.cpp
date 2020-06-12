@@ -10,8 +10,9 @@
 #include <queue>
 #include <utility>
 #include <Windows.h>
-//#include "C:\\Users\\User\\Downloads\\Contr_1.hpp" // путь
+#include "C:\\Users\\User\\Downloads\\Contr_1.hpp" // путь
 #include "C:\\Users\\User\\Downloads\\Matrix.h" // путь
+#include "C:\\Users\\User\\Downloads\\IntegratorEquasion.h" // путь
 
 using namespace std; // мб поменять
 
@@ -73,6 +74,56 @@ void dijkstra(const vector<vector<int> >& g, int s, int v) { // Мацулевич Валери
 	// Иначе вернем расстояние до нее
 }
 
+int mainODU_A(Vector<double> y) {
+	// Объявляем интегратор для метода RKMethodA
+	RKIntegrator<DoublePendulum, RKMethodA> integrator;
+	// Начальное состояние
+
+	HWND myconsole = GetConsoleWindow();
+	HDC mydc = GetDC(myconsole);
+	COLORREF COLOR = 2372346;
+	COLORREF COLOR_1 = 123634;
+	COLORREF GREEN_COLOR = RGB(0, 255, 0);
+	COLORREF BLUE_COLOR = RGB(0, 0, 255);
+
+	// Интегрирование с вектором b_main
+	for (size_t i = 0; i < 800; ++i)
+	{
+		y = integrator.make_step(0, 0.02, y);
+			SetPixel(mydc, i, 150 - y[0] * 50, COLOR_1);
+			SetPixel(mydc, i, 150 - y[1] * 50, COLOR);
+			SetPixel(mydc, i, 150 - y[2] * 10, GREEN_COLOR);
+			SetPixel(mydc, i, 150 - y[3] * 10, BLUE_COLOR);
+	}
+	return 1;
+}
+
+
+int mainODU_B(Vector<double> y) {
+	// Объявляем интегратор для метода RKMethodB
+	RKIntegrator<DoublePendulum, RKMethodB> integrator;
+	// Начальное состояние
+
+	HWND myconsole = GetConsoleWindow();
+	HDC mydc = GetDC(myconsole);
+	COLORREF COLOR = 2372346;
+	COLORREF COLOR_1 = 123634;
+	COLORREF GREEN_COLOR = RGB(0, 255, 0);
+	COLORREF BLUE_COLOR = RGB(0, 0, 255);
+
+	// Интегрирование с вектором b_main
+	for (size_t i = 0; i < 800; ++i)
+	{
+		y = integrator.make_step(0, 0.02, y);
+		SetPixel(mydc, i, 150 - y[0] * 50, COLOR_1);
+		SetPixel(mydc, i, 150 - y[1] * 50, COLOR);
+		SetPixel(mydc, i, 150 - y[2] * 10, GREEN_COLOR);
+		SetPixel(mydc, i, 150 - y[3] * 10, BLUE_COLOR);
+	}
+	return 1;
+}
+
+
 int readDi(string way) {
 	std::fstream file;
 
@@ -80,6 +131,7 @@ int readDi(string way) {
 
 	int time; // счетчик времени
 	int t = clock();
+	std::cout << "Таймер запущен\n";
 
 	int cycles = 0;
 	char line[100];
@@ -123,14 +175,62 @@ int readODU(string way) {
 	std::fstream file;
 	
 	file.open(way, ios::in); //открыть на чтение файл заданного номера с данными
-
-	int time; // счетчик времени
-	int t = clock();
-
-	//чтение файла
-	//сохранение построчно
-	// ОДУ
-	// обнули строку
+	
+	std::cout << "Задайте метод решения ОДУ (для RKMethodA введите 1, для RKMethodB введите 2)" << endl;
+	int met;
+	cin >> met;
+	while ((met != 1) && (met != 2)) {
+		std::cout << "Некорректный выбор задачи, попробуйте еще раз\n";
+		cin >> met;
+	} 
+	int time, t; // счетчик времени
+	
+	if (met == 1) {
+		t = clock();
+		std::cout << "Таймер запущен\n";
+		char line[200];
+		file.getline(line, 100);
+		int cycles = (int)(line);
+		for (int i = 0; i < cycles; i++) {
+			Vector<double>cordy;
+			file.getline(line, 200);
+			double a, b, c, d;
+			string k;
+			a = atof((cin, k).c_str());
+			k.erase(0, k.find_first_of(" "));
+			b = atof((cin, k).c_str());
+			k.erase(0, k.find_first_of(" "));
+			c = atof((cin, k).c_str());
+			k.erase(0, k.find_first_of(" "));
+			d = atof((cin, k).c_str());
+			k.erase(0, k.find_first_of(" "));
+			cordy = { a, b, c, d };
+			mainODU_A(cordy);
+		}
+	}
+	else {
+		t = clock();
+		std::cout << "Таймер запущен\n";
+			char line[200];
+			file.getline(line, 100);
+			int cycles = (int)(line);
+			for (int i = 0; i < cycles; i++) {
+				Vector<double>cordy;
+				file.getline(line, 200);
+				double a, b, c, d;
+				string k;
+				a = atof((cin, k).c_str());
+				k.erase(0, k.find_first_of(" "));
+				b = atof((cin, k).c_str());
+				k.erase(0, k.find_first_of(" "));
+				c = atof((cin, k).c_str());
+				k.erase(0, k.find_first_of(" "));
+				d = atof((cin, k).c_str());
+				k.erase(0, k.find_first_of(" "));
+				cordy = { a, b, c, d };
+				mainODU_B(cordy);
+			}
+	}
 	
 	time = clock() - t;
 	file.close(); // закрыть файл после прочтения
@@ -157,31 +257,5 @@ int reading(int numb) { //функция чтения файла и записи в массив
 	else {
 		t = readDi(way);
 	}
-
-	/*	 char line[100];
-	int k;
-	int i, ctr = 0;
-	double** narray;
-	while (file.getline(line, 100)) {
-		ctr += 1;
-		if (size == -1) {
-			size == (int)(line);
-			narray = new double* [size];
-			for (i; i < size; i++) {
-				narray[i] = new double[4];
-			}
-			i = 0;
-		}
-		while ((line[i] != ',') || (line[i] != '\n')) {
-			if (line[i] == ',') {
-				k += 1;
-			}
-//			narray[ctr * 4 + k] = (double)(line[k])
-			// сохранить слово в массив
-
-			// преобразовать под дейкстру
-			
-		}
-	} */
 	return t;
 }

@@ -11,9 +11,8 @@
 #include <fstream>
 #include <thread> // осторожно с версиями!!!
 #include "C:\\Users\\User\\Downloads\\Contr.hpp" // путь
-//#include "C:\\Users\\User\\Downloads\\Contr_1.hpp" // путь
-#include "C:\\Users\\User\\Downloads\\Matrix.h" // путь
-#include "C:\\Users\\User\\Downloads\\IntegratorEquasion.h" // путь
+
+
 
 
 using namespace std;
@@ -55,7 +54,7 @@ int main() {
 
 		int time = reading(way); //открыть файл номер way, засечь время
 
-		cout << "\nЗапуск номер " << b + 1 << " выполнялся на файле № " << way << ", задействовано " << cores << " потоков при " << gf <<" физических ядрах. \n Выполнялся в течение " << time << " милисекунд.\n\n";
+		cout << "\nЗапуск номер " << b + 1 << " выполнялся на файле № " << way << ", задействовано " << cores << " потоков при " << gf <<" физических ядрах. \nВыполнялся в течение " << time << " милисекунд.\n\n";
 		resf << b + 1 << endl;
 		resf << way << endl;
 		resf << cores << endl;
