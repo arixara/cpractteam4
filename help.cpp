@@ -10,13 +10,13 @@
 #include <queue>
 #include <utility>
 #include <Windows.h>
-#include "C:\\Users\\User\\Downloads\\Contr_1.hpp" // путь
+//#include "C:\\Users\\User\\Downloads\\Contr_1.hpp" // путь
 #include "C:\\Users\\User\\Downloads\\Matrix.h" // путь
 
 using namespace std; // мб поменять
 
 
-long int INF = 10e6; // Максимальный вес ребра в графе
+double INF = 10e6; // Максимальный вес ребра в графе
 
 // ВАЖНО: Дейкстра написан на списках смежности
 // s --- вершина, откуда идем
@@ -78,18 +78,44 @@ int readDi(string way) {
 
 	file.open(way, ios::in); //открыть на чтение файл заданного номера с данными
 
-
-
 	int time; // счетчик времени
 	int t = clock();
-	
-	//чтение файла
-	//сохранение по блокам
-	// dijkstra
-	// обнули блок (память)
+
+	int cycles = 0;
+	char line[100];
+	file.getline(line, 100);
+	if (cycles == 0) {
+		cycles = (int)(line);
+	}
+	for (int k = 0; k < cycles; k++) {
+		file.getline(line, 100);
+		string a = line;
+		int msize, mstrt, mfin;
+		msize = atoi((cin, a).c_str());
+		a.erase(0, a.find_first_of(" "));
+		mstrt = atoi((cin, a).c_str());
+		a.erase(0, a.find_first_of(" "));
+		mfin = atoi((cin, a).c_str());
+		std::vector<vector <int>> mtrx;
+		for (int i = 0; i < msize; i++) {
+			std::vector <int> row;
+			file.getline(line, 100);
+			a = line;
+			for (int j = 0; j < msize; j++) {
+				row.push_back(atoi((cin, a).c_str()));
+				a.erase(0, a.find_first_of(" "));
+			}
+			mtrx.push_back(row);
+		}
+		dijkstra(mtrx, mstrt, mfin); // до сюда доходит
+		file.getline(line, 10);
+		file.getline(line, 10);
+
+}
 
 	time = clock() - t;
 	file.close(); // закрыть файл после прочтения
+	free(line);
 	return time;
 }
 
@@ -131,9 +157,6 @@ int reading(int numb) { //функция чтения файла и записи в массив
 	else {
 		t = readDi(way);
 	}
-
-	int size = -1;
-	
 
 	/*	 char line[100];
 	int k;
